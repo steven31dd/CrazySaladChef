@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] PlayerInput _plyInput;
+    [SerializeField] Rigidbody2D _rb;
 
     [Header("Settings")]
     [SerializeField] private float _moveSpeed;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _plyInput = GetComponent<PlayerInput>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     void Start()
@@ -32,5 +34,19 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 movement = _plyInput.Move().normalized;
+        _rb.MovePosition(_rb.position + movement * (_speedBonus + _moveSpeed) * Time.fixedDeltaTime);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (_plyInput.Interact())
+        {
+            collision.gameObject.SendMessage("OnInteract", gameObject, SendMessageOptions.DontRequireReceiver);
+        }
     }
 }
