@@ -38,13 +38,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_isWorking) return;
+
         Vector2 movement = _plyInput.Move().normalized;
         _rb.MovePosition(_rb.position + movement * (_speedBonus + _moveSpeed) * Time.fixedDeltaTime);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (_plyInput.Interact())
+        if (_plyInput.Interact() && !_isWorking )
         {
             collision.gameObject.SendMessage("OnInteract", gameObject, SendMessageOptions.DontRequireReceiver);
         }

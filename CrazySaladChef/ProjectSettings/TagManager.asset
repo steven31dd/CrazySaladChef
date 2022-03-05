@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - P1Inv
+  - P2Inv
+  - PlayerOne
+  - PlayerTwo
   layers:
   - Default
   - TransparentFX

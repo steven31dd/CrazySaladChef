@@ -5,10 +5,17 @@ using UnityEngine;
 
 public class InteractItemGrab : BaseInteraction
 {
-    [SerializeField] private int ItemID;
+    [SerializeField] private Item item;
+    [SerializeField] private GameObject popupGO;
     // Start is called before the first frame update
     public override void OnInteract(GameObject player)
     {
-        //Give Player Item, Set to Inventory
+        PlayerInventory plyInv = player.GetComponent<PlayerInventory>();
+
+        if (plyInv.AddItem(item))
+        {
+            GameObject newPopGO = Instantiate(popupGO);
+            newPopGO.GetComponent<PopUp>().InitPopUp(item, player.transform);
+        }
     }
 }

@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     Transform playerOneStart;
     Transform playerTwoStart;
 
+    GameObject plyOneUI;
+    GameObject plyTwoUI;
+
 
     private int _numPlayers = 0;
     public int NumPlayers { get { return _numPlayers; } 
@@ -90,6 +93,9 @@ public class GameManager : MonoBehaviour
                 GameObject newPlayer = Instantiate(player_one_prefab, playerOneStart.position, Quaternion.identity);
                 //properly set name so camera can find
                 newPlayer.name = "Player1";
+
+                plyTwoUI = GameObject.Find("PlayerTwoInventory");
+                plyTwoUI.SetActive(false);
             }
             else
             {
