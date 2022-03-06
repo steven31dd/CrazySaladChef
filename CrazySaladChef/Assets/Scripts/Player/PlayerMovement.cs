@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] PlayerInput _plyInput;
     [SerializeField] Rigidbody2D _rb;
+    [SerializeField] GameObject receiverGO;
 
     [Header("Settings")]
     [SerializeField] private float _moveSpeed;
@@ -33,7 +34,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       if (_plyInput.Interact() && !_isWorking)
+       {
+                if(receiverGO != null)
+                {
+                Debug.Log("Send Message To Object");
+                    receiverGO.SendMessage("OnInteract", gameObject, SendMessageOptions.DontRequireReceiver);
+                }
+       }
     }
 
     private void FixedUpdate()
@@ -46,9 +54,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (_plyInput.Interact() && !_isWorking )
-        {
-            collision.gameObject.SendMessage("OnInteract", gameObject, SendMessageOptions.DontRequireReceiver);
-        }
+        Debug.Log("Object Detected: " + collision.name);
+        receiverGO = collision.gameObject;
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("Exited Detection: " + collision.name);
+        receiverGO = null;
+    }
+
 }

@@ -12,12 +12,18 @@ public class PlayerInventory : MonoBehaviour
     public void Awake()
     {
         invUI = GetComponent<InventoryUI>();
+        items[0] = null;
+        items[1] = null;
     }
 
     public bool AddItem(Item item)
     {
         //simply return if inventory is filled
-        if (items[0] != null && items[1] != null) return false;
+        if (items[0] != null && items[1] != null)
+        {
+            Debug.LogWarning("Additem both slots filled");
+            return false;
+        }
 
         //trying adding in first slot, if not then second
         if(items[0] == null)

@@ -6,13 +6,23 @@ using UnityEngine.UI;
 public class Progress : MonoBehaviour
 {
     [SerializeField] Slider progressSlider;
+    [SerializeField] Transform target;
+    [SerializeField] Vector3 offset;
+
+    Camera cam;
 
     //allows for initializing
     bool ready = false;
 
-    //Initialize this script with StartTimer
-    public void StartTimer(float timeLengthProgression)
+    private void Start()
     {
+        cam = Camera.main;
+    }
+
+    //Initialize this script with StartTimer
+    public void StartTimer(float timeLengthProgression, Transform newtarget)
+    {
+        target = newtarget;
         progressSlider = GetComponent<Slider>();
         progressSlider.value = 0;
         progressSlider.minValue = Time.time;
@@ -36,6 +46,11 @@ public class Progress : MonoBehaviour
     void Update()
     {
         if (!ready) return;
+
+        Vector3 pos = cam.WorldToScreenPoint(target.position + offset);
+
+        if (transform.position != pos)
+            transform.position = pos;
 
         progressSlider.value = Time.time;
     }

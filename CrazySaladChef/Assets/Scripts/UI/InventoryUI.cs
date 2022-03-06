@@ -57,12 +57,10 @@ public class InventoryUI : MonoBehaviour
 
         if (slot == 1)
         {
-            SlotOne = null;
             SlotOne.color = Color.clear;
         }
         else
         {
-            SlotTwo = null;
             SlotTwo.color = Color.clear;
         }
     }

@@ -29,7 +29,7 @@ public class InteractionMealMake : BaseInteraction
         ProgressionBar.SetActive(true);
 
         //StartTimer
-        ProgressionBar.GetComponent<Progress>().StartTimer(processTime);
+        ProgressionBar.GetComponent<Progress>().StartTimer(processTime, plyGO.transform);
 
         isDone = false;
         
@@ -44,8 +44,8 @@ public class InteractionMealMake : BaseInteraction
 
         if(ProgressionBar.GetComponent<Progress>().IsProgressComplete())
         {
-            ProgressionBar.SetActive(false);
             OnInteractEnded();
+            ProgressionBar.SetActive(false);
             isDone = true;
         }
     }

@@ -137,6 +137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _plyInput: {fileID: 0}
   _rb: {fileID: 0}
+  _plyTrigger: {fileID: 0}
+  receiverGO: {fileID: 0}
   _moveSpeed: 7
 --- !u!50 &7574493527395243724
 Rigidbody2D:
