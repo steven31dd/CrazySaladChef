@@ -8,6 +8,7 @@ TagManager:
   - P2Inv
   - PlayerOne
   - PlayerTwo
+  - End
   layers:
   - Default
   - TransparentFX

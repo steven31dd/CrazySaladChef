@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour
 
     GameObject plyOneUI;
     GameObject plyTwoUI;
+
+    GameObject EndPanel;
 
     private int plyOnePoints = 0;
     private int plyTwoPoints = 0;
@@ -118,6 +121,9 @@ public class GameManager : MonoBehaviour
 
             //Trigger Event to ready game and camera
             gameReady.TriggerEvent();
+
+            EndPanel = GameObject.FindGameObjectWithTag("End");
+            EndPanel.SetActive(false);
         }
     }
 
@@ -125,6 +131,38 @@ public class GameManager : MonoBehaviour
     {
         GameObject.Find("Player1").GetComponent<PlayerMovement>().IsWorking = true;
         GameObject.Find("Player2").GetComponent<PlayerMovement>().IsWorking = true;
+
+        if(_numPlayers == 2)
+        {
+            if (plyOnePoints > plyTwoPoints)
+            {
+                EndPanel.transform.GetChild(0).GetComponent<TMP_Text>().text = "Player One Wins";
+                EndPanel.transform.GetChild(1).GetComponent<TMP_Text>().text = "Score: " + plyOnePoints;
+            }else if (plyTwoPoints > plyOnePoints)
+            {
+                EndPanel.transform.GetChild(0).GetComponent<TMP_Text>().text = "Player Two Wins";
+                EndPanel.transform.GetChild(1).GetComponent<TMP_Text>().text = "Score: " + plyTwoPoints;
+            }
+            else
+            {
+                EndPanel.transform.GetChild(0).GetComponent<TMP_Text>().text = "DRAW!";
+            }
+        }
+        else
+        {
+            EndPanel.transform.GetChild(0).GetComponent<TMP_Text>().text = "Player One Completed";
+            EndPanel.transform.GetChild(1).GetComponent<TMP_Text>().text = "Score: " + plyOnePoints;
+
+        }
+
+        EndPanel.SetActive(true);
+
+        Invoke("SwitchToMenu", 2.0f);
+    }
+
+    private void SwitchToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
 
