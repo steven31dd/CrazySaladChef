@@ -8,7 +8,6 @@ public class Progress : MonoBehaviour
     [SerializeField] Slider progressSlider;
     [SerializeField] Transform target;
     [SerializeField] Vector3 offset;
-
     Camera cam;
 
     //allows for initializing
@@ -23,10 +22,26 @@ public class Progress : MonoBehaviour
     public void StartTimer(float timeLengthProgression, Transform newtarget)
     {
         target = newtarget;
+
         progressSlider = GetComponent<Slider>();
         progressSlider.value = 0;
         progressSlider.minValue = Time.time;
         progressSlider.maxValue = Time.time + timeLengthProgression;
+        ready = true;
+    }
+
+    //Initialize this script with StartTimer with an offset
+    public void StartTimerOffset(float timeLengthProgression, Transform newtarget, Vector3 newOffset)
+    {
+        target = newtarget;
+        offset = newOffset;
+        progressSlider = GetComponent<Slider>();
+
+            progressSlider.value = 0;
+            progressSlider.minValue = Time.time;
+            progressSlider.maxValue = Time.time + timeLengthProgression;
+     
+        
         ready = true;
     }
 

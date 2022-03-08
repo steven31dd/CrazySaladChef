@@ -10,8 +10,9 @@ public enum NPCFeel
 
 public class NPCOrder : MonoBehaviour
 {
-    comboID mealWantID;
+    [SerializeField]comboID mealWantID;
     NPCFeel npcFeel;
+    //used for timer
     [SerializeField] GameObject POPUP;
     [SerializeField] Sprite wrongOrderSprite;
     [SerializeField] Sprite correctOrderSprite;
@@ -19,8 +20,11 @@ public class NPCOrder : MonoBehaviour
 
     private bool hasGivenOrder = false;
     private bool givenWrongOrder = false;
+    private bool waitedtoLong = false;
 
     private float _timer = 0;
+
+    public bool WaitedLong { get { return waitedtoLong; } }
 
     [SerializeField][Range(1, 500)] private int _potentialScore = 100;
 
@@ -35,6 +39,10 @@ public class NPCOrder : MonoBehaviour
         _waitTime = Random.Range(_randomWaitTime.x, _randomWaitTime.y);
 
         _timer = _waitTime;
+
+        //random range corresponding to enum variables
+        int pick = Random.Range(1, 5);
+        mealWantID = (comboID)pick;
     }
 
     public bool GaveOrder()
@@ -48,8 +56,9 @@ public class NPCOrder : MonoBehaviour
         return mealWantID;
     }
 
-    public void ReceiveOrder(GameObject player, MealItem item)
+    public bool ReceiveOrder(GameObject player, MealItem item)
     {
+
         if(item.ID != mealWantID)
         {
             givenWrongOrder = true;
@@ -60,7 +69,7 @@ public class NPCOrder : MonoBehaviour
             GameObject popGO = Instantiate(POPUP);
             popGO.GetComponent<PopUp>().InitPopUp(wrongOrderSprite, transform);
 
-            return;
+            return false;
         }
         else
         {
@@ -75,14 +84,9 @@ public class NPCOrder : MonoBehaviour
             }
         }
 
-        
+        return true;
     }
 
-    //Invoked method
-    public void TimedDestroy()
-    {
-        Destroy(gameObject);
-    }
 
     private void CheckFeelConditions(int playerNum)
     {
@@ -109,8 +113,8 @@ public class NPCOrder : MonoBehaviour
                 GameObject popGO = Instantiate(POPUP);
                 popGO.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
 
-                //destroy after one sec
-                Invoke("TimedDestroy", 1f);
+        
+    
                 return;
 
             case NPCFeel.UNHAPPY:
@@ -129,7 +133,7 @@ public class NPCOrder : MonoBehaviour
                 popGO2.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
 
                 //destroy after one sec
-                Invoke("TimedDestroy", 1f);
+              
                 return;
 
             case NPCFeel.UPSET:
@@ -147,8 +151,7 @@ public class NPCOrder : MonoBehaviour
                 GameObject popGO3 = Instantiate(POPUP);
                 popGO3.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
 
-                //destroy after one sec
-                Invoke("TimedDestroy", 1f);
+          
                 return;
             case NPCFeel.HAPPY:
                 //Not really needed but I will add just in case
@@ -172,8 +175,6 @@ public class NPCOrder : MonoBehaviour
                 GameObject popGO4 = Instantiate(POPUP);
                 popGO4.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
 
-                //destroy after one sec
-                Invoke("TimedDestroy", 1f);
                 return;
         }
     }
@@ -196,12 +197,13 @@ public class NPCOrder : MonoBehaviour
             npcFeel = NPCFeel.UPSET;
         }
 
-        if(_timer <= 0)
+        if(_timer <= 0 && !waitedtoLong)
         {
             //Lose Points for both players
 
-            //Customer Leaves
-            Destroy(gameObject);
+
+            //waited to long
+            waitedtoLong = true;
         }
     }
 }
