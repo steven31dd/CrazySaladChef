@@ -20,4 +20,16 @@ public class Item
 {
     public Sprite image;
     public ItemID id;
+
+    public Item()
+    {
+        image = null;
+        id = ItemID.NONE;
+    }
+
+    public void Reset()
+    {
+        image = null;
+        id = ItemID.NONE;
+    }
 }

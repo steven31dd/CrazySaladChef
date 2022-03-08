@@ -12,7 +12,6 @@ public class NPCOrder : MonoBehaviour
 {
     comboID mealWantID;
     NPCFeel npcFeel;
-    private GameObject _playerGivenOrder = null;
     [SerializeField] GameObject POPUP;
     [SerializeField] Sprite wrongOrderSprite;
     [SerializeField] Sprite correctOrderSprite;
@@ -58,8 +57,8 @@ public class NPCOrder : MonoBehaviour
             if (npcFeel == NPCFeel.NEUTRAL)
                 npcFeel = NPCFeel.UNHAPPY;
 
-            Instantiate(POPUP);
-            POPUP.GetComponent<PopUp>().InitPopUp(wrongOrderSprite, transform);
+            GameObject popGO = Instantiate(POPUP);
+            popGO.GetComponent<PopUp>().InitPopUp(wrongOrderSprite, transform);
 
             return;
         }
@@ -107,8 +106,8 @@ public class NPCOrder : MonoBehaviour
 
 
                 //Create popup
-                Instantiate(POPUP);
-                POPUP.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
+                GameObject popGO = Instantiate(POPUP);
+                popGO.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
 
                 //destroy after one sec
                 Invoke("TimedDestroy", 1f);
@@ -126,8 +125,8 @@ public class NPCOrder : MonoBehaviour
                 }
 
                 //Create popup
-                Instantiate(POPUP);
-                POPUP.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
+                GameObject popGO2 = Instantiate(POPUP);
+                popGO2.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
 
                 //destroy after one sec
                 Invoke("TimedDestroy", 1f);
@@ -145,8 +144,8 @@ public class NPCOrder : MonoBehaviour
                 }
 
                 //Create popup
-                Instantiate(POPUP);
-                POPUP.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
+                GameObject popGO3 = Instantiate(POPUP);
+                popGO3.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
 
                 //destroy after one sec
                 Invoke("TimedDestroy", 1f);
@@ -170,8 +169,8 @@ public class NPCOrder : MonoBehaviour
 
 
                 //Create popup
-                Instantiate(POPUP);
-                POPUP.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
+                GameObject popGO4 = Instantiate(POPUP);
+                popGO4.GetComponent<PopUp>().InitPopUp(correctOrderSprite, transform);
 
                 //destroy after one sec
                 Invoke("TimedDestroy", 1f);

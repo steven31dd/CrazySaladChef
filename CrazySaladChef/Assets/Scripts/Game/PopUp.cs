@@ -7,6 +7,7 @@ public class PopUp : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRend;
     [SerializeField] Transform target;
     [SerializeField] float timeEnd = 1.0f;
+    
 
     public void Awake()
     {

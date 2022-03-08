@@ -21,30 +21,32 @@ public class PlayerInventory : MonoBehaviour
     public void Awake()
     {
         invUI = GetComponent<InventoryUI>();
-        items[0] = null;
-        items[1] = null;
+        items[0] = new Item();
+        items[1] = new Item();
         ResetPlayerMeal();
     }
 
-    public bool AddItem(Item item)
+    public bool AddItem(Sprite sprite, ItemID id)
     {
         //simply return if inventory is filled
-        if (items[0] != null && items[1] != null)
+        if (items[0].id != ItemID.NONE && items[1].id != ItemID.NONE)
         {
             Debug.LogWarning("Additem both slots filled");
             return false;
         }
 
         //trying adding in first slot, if not then second
-        if(items[0] == null)
+        if(items[0].id == ItemID.NONE)
         {
-            items[0] = item;
-            invUI.SetImage(1, item.image);
+            items[0].image = sprite;
+            items[0].id = id;
+            invUI.SetImage(1, items[0].image);
         }
         else
         {
-            items[1] = item;
-            invUI.SetImage(2, item.image);
+            items[1].image = sprite;
+            items[1].id = id;
+            invUI.SetImage(2, items[1].image);
         }
 
         return true;
@@ -53,7 +55,7 @@ public class PlayerInventory : MonoBehaviour
     //returns -1 if null
     public ItemID GetFirstSlotID()
     {
-        if(items[0] != null)
+        if(items[0].id != ItemID.NONE)
         {
             return items[0].id;
         }
@@ -65,16 +67,17 @@ public class PlayerInventory : MonoBehaviour
     public void RemoveFirstItem()
     {
 
-        if(items[0] != null)
+        if(items[0].id != ItemID.NONE)
         {
-            items[0] = null;
+            items[0].Reset();
             invUI.ClearSlot(1);
 
             //if item[1] not null, pull forward in array
-            if (items[1] != null)
+            if (items[1].id != ItemID.NONE)
             {
-                items[0] = items[1];
-                items[1] = null;
+                items[0].image = items[1].image;
+                items[0].id = items[1].id;
+                items[1].Reset();
 
                 invUI.SetImage(1, items[0].image);
                 invUI.ClearSlot(2);

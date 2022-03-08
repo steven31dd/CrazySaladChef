@@ -25,8 +25,8 @@ public class InteractionGrabMeal : BaseInteraction
         player.GetComponent<PlayerInventory>().PlayerMeal = newMeal;
 
         //Pop Up meal received
-        Instantiate(POPUP);
-        POPUP.GetComponent<PopUp>().InitPopUp(comboSprite(newPlayerMeal), player.transform);
+        GameObject popGO = Instantiate(POPUP);
+        popGO.GetComponent<PopUp>().InitPopUp(comboSprite(newPlayerMeal), player.transform);
 
         //Clear this meal out
         meal.ClearMeal();

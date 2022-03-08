@@ -16,6 +16,7 @@ public enum comboID
 }
 
 //For use with player and customer
+[System.Serializable]
 public struct MealItem{
     public comboID ID;
     public Sprite mealSprite;

@@ -12,7 +12,7 @@ public class InteractItemGrab : BaseInteraction
     {
         PlayerInventory plyInv = player.GetComponent<PlayerInventory>();
 
-        if (plyInv.AddItem(item))
+        if (plyInv.AddItem(item.image, item.id))
         {
             GameObject newPopGO = Instantiate(popupGO);
             newPopGO.GetComponent<PopUp>().InitPopUp(item, player.transform);
