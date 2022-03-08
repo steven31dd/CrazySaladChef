@@ -9,6 +9,8 @@ TagManager:
   - PlayerOne
   - PlayerTwo
   - End
+  - PlayerOneScore
+  - PlayerTwoScore
   layers:
   - Default
   - TransparentFX

@@ -200,7 +200,8 @@ public class NPCOrder : MonoBehaviour
         if(_timer <= 0 && !waitedtoLong)
         {
             //Lose Points for both players
-
+            GameManager.Instance.PlayerOnePoints = -200;
+            GameManager.Instance.PlayerTwoPoints = -200;
 
             //waited to long
             waitedtoLong = true;
