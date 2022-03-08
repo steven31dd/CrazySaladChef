@@ -15,6 +15,12 @@ public enum comboID
     UNKNOWN
 }
 
+//For use with player and customer
+public struct MealItem{
+    public comboID ID;
+    public Sprite mealSprite;
+}
+
 public class Meal
 {
     List<ItemID> _meal = new List<ItemID>();

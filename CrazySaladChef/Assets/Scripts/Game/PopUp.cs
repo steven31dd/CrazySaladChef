@@ -15,7 +15,16 @@ public class PopUp : MonoBehaviour
 
     public void InitPopUp(Item newItem, Transform newTarget)
     {
+        spriteRend = GetComponent<SpriteRenderer>();
         spriteRend.sprite = newItem.image;
+        target = newTarget;
+        Invoke("TimeOut", timeEnd);
+    }
+
+    public void InitPopUp(Sprite sprite, Transform newTarget)
+    {
+        spriteRend = GetComponent<SpriteRenderer>();
+        spriteRend.sprite = sprite;
         target = newTarget;
         Invoke("TimeOut", timeEnd);
     }
@@ -29,6 +38,8 @@ public class PopUp : MonoBehaviour
 
     public void TimeOut()
     {
+        target = null;
+        spriteRend.sprite = null;
         Destroy(gameObject);
     }
 }

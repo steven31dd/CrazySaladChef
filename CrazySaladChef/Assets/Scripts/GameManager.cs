@@ -18,8 +18,6 @@ public class GameManager : MonoBehaviour
     [Header("Events")]
     [SerializeField] EventObject gameReady;
 
-    [Header("In-Game Settings")]
-    [SerializeField] private float timer;
 
     Transform playerOneStart;
     Transform playerTwoStart;
@@ -27,6 +25,12 @@ public class GameManager : MonoBehaviour
     GameObject plyOneUI;
     GameObject plyTwoUI;
 
+    private int plyOnePoints = 0;
+    private int plyTwoPoints = 0;
+
+    //Set is ADDITIVE
+    public int PlayerOnePoints { get { return plyOnePoints; } set { plyOnePoints += value; } }
+    public int PlayerTwoPoints { get { return plyTwoPoints; } set { plyTwoPoints += value; } }
 
     private int _numPlayers = 0;
     public int NumPlayers { get { return _numPlayers; } 
@@ -117,9 +121,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ShowScore()
+    public void ShowScoreAndFreezePlayers()
     {
-
+        GameObject.Find("Player1").GetComponent<PlayerMovement>().IsWorking = true;
+        GameObject.Find("Player2").GetComponent<PlayerMovement>().IsWorking = true;
     }
 
 

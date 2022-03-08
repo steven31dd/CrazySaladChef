@@ -8,12 +8,22 @@ public class PlayerInventory : MonoBehaviour
     //Serialized so I can test, using Array instead of list
     [SerializeField] private Item[] items = new Item[2];
     [SerializeField] InventoryUI invUI;
+    [SerializeField] MealItem playerMeal;
+
+    public MealItem PlayerMeal { get { return playerMeal; } set { playerMeal = value; } }
+
+    public void ResetPlayerMeal()
+    {
+        playerMeal.ID = comboID.NONE;
+        playerMeal.mealSprite = null;
+    }
 
     public void Awake()
     {
         invUI = GetComponent<InventoryUI>();
         items[0] = null;
         items[1] = null;
+        ResetPlayerMeal();
     }
 
     public bool AddItem(Item item)
