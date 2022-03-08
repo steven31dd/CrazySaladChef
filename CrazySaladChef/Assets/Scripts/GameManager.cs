@@ -26,14 +26,22 @@ public class GameManager : MonoBehaviour
     GameObject plyOneUI;
     GameObject plyTwoUI;
 
+    GameObject plyOneScorePanel;
+    GameObject plyTwoScorePanel;
     GameObject EndPanel;
 
     private int plyOnePoints = 0;
     private int plyTwoPoints = 0;
 
     //Set is ADDITIVE
-    public int PlayerOnePoints { get { return plyOnePoints; } set { plyOnePoints += value; } }
-    public int PlayerTwoPoints { get { return plyTwoPoints; } set { plyTwoPoints += value; } }
+    public int PlayerOnePoints { get { return plyOnePoints; } set { 
+            plyOnePoints += value;
+            plyOneScorePanel.transform.GetChild(0).GetComponent<TMP_Text>().text = plyOnePoints.ToString();
+        } }
+    public int PlayerTwoPoints { get { return plyTwoPoints; } set {
+            plyTwoPoints += value;
+            plyTwoScorePanel.transform.GetChild(0).GetComponent<TMP_Text>().text = plyTwoPoints.ToString();
+        } }
 
     private int _numPlayers = 0;
     public int NumPlayers { get { return _numPlayers; } 
@@ -124,6 +132,12 @@ public class GameManager : MonoBehaviour
 
             EndPanel = GameObject.FindGameObjectWithTag("End");
             EndPanel.SetActive(false);
+
+            plyOneScorePanel = GameObject.FindGameObjectWithTag("PlayerOneScore");
+            plyTwoScorePanel = GameObject.FindGameObjectWithTag("PlayerTwoScore");
+
+            plyOneScorePanel.transform.GetChild(0).GetComponent<TMP_Text>().text = "0";
+            plyTwoScorePanel.transform.GetChild(0).GetComponent<TMP_Text>().text = "0";
         }
     }
 
