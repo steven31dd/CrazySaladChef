@@ -19,9 +19,9 @@ Note: menu uses mouse
 # Other Notes
 I was sick for two days and it took me a little longer because 2D is different to me, I am more familiar with doing 3D.
 
-##What I can do
+## What I can do
 I should have created a script that keeps track of each button on the menu in a list and highlight/choose one with an index.
 
-##Misc
+## Misc
 I think i forgot powerups, even though the logic for speed is there.
 
